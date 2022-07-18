@@ -43,10 +43,8 @@ def verify_acces_token(token: str, credential_exception):
 def get_current_user(token :str = Depends(oath2_scheme)):
     credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials", headers={"WWW-Authenicate": "Bearer"})
     token = verify_acces_token(token, credentials_exception)
-
-    cursor.execute("SELECT * FROM users WHERE id = %s", str(token.id))
+    cursor.execute("SELECT * FROM users WHERE id =" + str(token.id))
     user = cursor.fetchone()
-    print(user["id"])
     return user
 
 class Post(BaseModel):
@@ -56,8 +54,7 @@ class Post(BaseModel):
     per_hour: Optional[bool]
     per_thing: Optional[str]
     poblation: str
-    user_id: int
-    expiration: Optional[str]
+    expiration: Optional[datetime]
 
 class User(BaseModel):
     email: EmailStr
@@ -86,6 +83,8 @@ class Token(BaseModel):
 class Token_data(BaseModel):
     id: Optional[str] = None
 
+class Applicate(BaseModel):
+    application_text: str
 
 while True:
     try:
@@ -108,8 +107,8 @@ def root():
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED, response_model=Post)
 def create_posts(post: Post, current_user: int = Depends(get_current_user)):
-    cursor.execute("INSERT INTO posts (title, description, price, per_hour, per_thing, poblation, user_id, expiration) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING *",
-                   (post.title, post.description, post.price, post.per_hour, post.per_thing, post.poblation,post.user_id, post.expiration))
+    cursor.execute("INSERT INTO posts (title, description, price, per_hour, per_thing, poblation,user_id, expiration) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING *",
+                   (post.title, post.description, post.price, post.per_hour, post.per_thing, post.poblation, current_user["id"], post.expiration))
     new_post = cursor.fetchone()
     print(new_post)
     conn.commit()
@@ -190,6 +189,11 @@ def login(user_credentials: OAuth2PasswordRequestForm = Depends()):
     acces_token = create_acces_token(data={"user_id":password_hash["id"]})
     return {"acces_token": acces_token, "token_type": "bearer "}
 
-@app.put("/posts/{id}", status_code= status.HTTP_201_CREATED)
-def aplicate(user_id):
-    cursor.execute("INSERT ")
+@app.put("/posts/applicate/{id}", status_code= status.HTTP_201_CREATED)
+def aplicate(application: Applicate, current_user: int = Depends(get_current_user)):
+    cursor.execute("UPDATE posts SET application = %s WHERE id = %s RETURNING *" (application.application_text, str(id)))
+    post = cursor.fetchone()
+    conn.commit()
+
+    if post is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} does not exist.")
