@@ -127,7 +127,7 @@ def get_post(id:int, response: Response):
 @app.delete("/posts/{id}")
 def delte_post(id:int, status_code = status.HTTP_204_NO_CONTENT, current_user: int = Depends(get_current_user)):
     if get_post(id).user_id != current_user["user_id"]:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="not authorized to perform requested action")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Please don't try to delete other people posts")
     cursor.execute("DELETE FROM posts WHERE ID = %s RETURNING *", str((id)))
     deleted_post = cursor.fetchone()
     conn.commit()
@@ -137,11 +137,11 @@ def delte_post(id:int, status_code = status.HTTP_204_NO_CONTENT, current_user: i
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-@app.put("/posts/{id}")
+@app.put("/posts/{id}", status_code=status.HTTP_200_OK)
 def update_post(id:int, post : Post, current_user: int = Depends(get_current_user)):
 
     if get_post(id).user_id != current_user["user_id"]:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="not authorized to perform requested action")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You should edit your own posts")
     cursor.execute("UPDATE posts SET title = %s, description = %s, price = %s, per_hour = %s, per_thing = %s, poblation = %s, user_id = %s, expiration = %s WHERE id = %s RETURNING *",
                    (post.title, post.description, post.price, post.per_hour, post.per_thing,  post.poblation, current_user["id"], post.expiration,  str(id)))
 
@@ -189,11 +189,19 @@ def login(user_credentials: OAuth2PasswordRequestForm = Depends()):
     acces_token = create_acces_token(data={"user_id":password_hash["id"]})
     return {"acces_token": acces_token, "token_type": "bearer "}
 
-@app.put("/posts/applicate/{id}", status_code= status.HTTP_201_CREATED)
-def aplicate(application: Applicate, current_user: int = Depends(get_current_user)):
-    cursor.execute("UPDATE posts SET application = %s WHERE id = %s RETURNING *" (application.application_text, str(id)))
+@app.post("/posts/apply/{id}", status_code= status.HTTP_201_CREATED)
+def aplicate(application: Applicate, id : int, current_user: int = Depends(get_current_user)):
+    if get_post(id).user_id == current_user["user_id"]:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You can't apply to your own post")
+    cursor.execute("UPDATE posts SET num_applications = num_applications + 1 WHERE id = %s RETURNING *" % (str(id)))
     post = cursor.fetchone()
+    cursor.execute("INSERT INTO applications (post_id, user_id, message) VALUES(%s, %s, %s)", (str(post["id"]), str(current_user["id"]), str(application.application_text)))
     conn.commit()
 
     if post is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} does not exist.")
+    return post
+
+@app.put("/users", status_code= status.HTTP_200_OK,response_model= UserOut)
+def edit_user():
+    pass
