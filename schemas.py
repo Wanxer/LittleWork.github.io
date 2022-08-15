@@ -32,7 +32,7 @@ while True:
 
 conf = ConnectionConfig(
     MAIL_USERNAME = "bingchilling152@gmail.com",
-    MAIL_PASSWORD = "humblework",
+    MAIL_PASSWORD = contrasenya,
     MAIL_FROM = "bingchilling152@gmail.com",
     MAIL_PORT = 587,
     MAIL_SERVER = "smtp.gmail.com",
