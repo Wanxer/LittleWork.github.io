@@ -1,2 +1,2 @@
 # LittleWork
-Per corre el codi: uvicorn Main:app --reload
+Per corre el codi: uvicorn main:app --reload
