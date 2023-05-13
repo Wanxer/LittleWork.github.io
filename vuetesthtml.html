@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vue Basics</title>
+    </head>
+    <style>
+        .box{
+            background-color: red;
+            height: 100px;
+            width: 80px;
+        }
+        [v-cloak]{
+            display:none
+        }
+    </style>
+    <body>
+        <!-- El v-cloack es important perque no es carregui res que no surti abans d'hora donant un efecte lleig, tmb has de ficar en el css display none-->
+        <div id = "app" v-cloak>
+            <login-form />
+
+            {{salutacions}}
+            <input @keyup.enter = "greet(saluda)"/>
+            <div v-if="isVisible" class = "box"></div>
+            <button @:click="toggleBox"> Pitja </button>
+        </div>
+
+
+        <hr/>
+
+        
+        
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            let app = Vue.createApp({
+                data: function() {
+                    return{
+                        salutacions : "Hi VUe 3!!!",
+                        isVisible : false
+                    }
+                },
+                methods:{
+                    toggleBox: function(){
+                        this.isVisible =!this.isVisible
+                    },
+                    greet: function(saluda){
+                        console.log(this.saluda)
+                    }
+                }
+            })
+
+            app.component("login-form", {
+                template: `
+                <form @submit.prevent="handleSubmit">
+                    <h1>{{ title }}</h1>
+                    <p v-for="str in inputs" :key="str">{{str}}</p>
+                    <custom-input @keyup.enter = handleSubmit type = "email" v-model = "email" v-bind:label ="emailLabel"  />
+                    <custom-input @keyup.enter = handleSubmit type = "password" v-model = "password" v-bind:label ="passwordLabel"  />
+                </form>
+                `,
+
+                data() {
+                    return {
+                        title: "login Form", 
+                        inputs: [
+                            {
+                            label: "Email",
+                            value: "",
+                            type: "email"
+                            },
+                            {
+                            label: "Password",
+                            value: "",
+                            type: "password"
+                            }    
+                        ], 
+                        email: "fdf",
+                        emailLabel: "Email",
+                        password: "",
+                        passwordLabel: "Password"
+                    }
+                },
+                methods: {
+                    handleSubmit: function() {
+                        console.log(this.email)
+                        axios.get('http://127.0.0.1:8000/posts/50')
+                        .then(response => {
+                        // handle success
+                        console.log(response.data);
+                        })
+                            .catch(error => {
+                        // handle error
+                        console.log(error.message);
+                        })
+                    }
+                },  
+
+            })
+            app.component("custom-input", {
+                template: `
+                <label>
+                    {{ label }}
+                    <input type="text" v-model = "inputValue">
+                </label>
+                `,
+                props:["label", "modelValue"],
+
+                computed:{
+                    inputValue: {
+                        get() {
+                            return this.modelValue
+                        },
+
+                        set(email) {
+                            this.$emit("update:modelValue", email);
+                            
+                        }
+                    }
+                },
+
+
+                
+            })
+            
+
+            app.mount("#app")
+        </script>
+    </body>
+</html>
+
