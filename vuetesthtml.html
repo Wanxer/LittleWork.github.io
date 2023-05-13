@@ -86,7 +86,7 @@
                         axios.get('http://127.0.0.1:8000/posts/50')
                         .then(response => {
                         // handle success
-                        console.log(response.data);
+                        this.email = response.data
                         })
                             .catch(error => {
                         // handle error
