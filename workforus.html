@@ -118,7 +118,7 @@
                     validatePhoneNumber() {
                       const regex = /^[0-9\-]+$/; // Allow only numeric characters and dashes
                         if (!regex.test(this.phoneNumber) || this.phoneNumber.length != 9) {
-                        this.$refs.phoneInput.setCustomValidity('Please enter a valid phone number');
+                        this.$refs.phoneInput.setCustomValidity('El numero ha de tenir 9 xifres');
                         } else {
                           this.$refs.phoneInput.setCustomValidity('');
                         }
