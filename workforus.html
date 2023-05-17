@@ -11,7 +11,7 @@
     <body>
       <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container">
-            <a href="#" class="navbar-brand">Express work</a>
+          <a href="https://wanxer.github.io/LittleWork.github.io/" class="navbar-brand">HelpMeNow</a>
             
             <!-- es el boto d'expandir el menu -->
             <button class="navbar-toggler" 
@@ -55,28 +55,28 @@
                 <form>
                   <div class="mb-3">
                     <label>Direccion electronica</label>
-                    <input type="email" class="form-control"  placeholder="Entra tu email" id="email" v-model = "email" required>
+                    <input type="email" class="form-control" v-model = "email" required>
                   </div>
                   <div class="mb-3">
                     <label>Nombre y apellidos</label>
-                    <input class="form-control"  placeholder="Nombre apellidos" v-model = 'name' required oninvalid="this.setCustomValidity('Porfavor rellena todos los campos')" oninput="this.setCustomValidity('')">
+                    <input class="form-control"  v-model = 'name' required>
                   </div>
                   <div class="mb-3">
                     <label>Contrasenya</label>
-                    <input type="password" class="form-control" id="password"  aria-describedby="passwordHelp" v-model = "password">
+                    <input type="password" class="form-control" id="password"  aria-describedby="passwordHelp" v-model = "password" required>
                     <div id="passwordHelp" class="form-text">*Al menos 6 caracteres</div>
                   </div>
                   <div class="mb-3">
                     <label>Tú numero de teléfono</label>
                     <input type="tel" class="form-control" ref="phoneInput" v-model="phoneNumber" placeholder="+34" @input="validatePhoneNumber" required>
-                    <span v-if="phoneNumber.length !== 9 && phoneNumber !== ''" style="color: red;">Phone number must be 9 characters long</span>
+                    <span v-if="phoneNumber.length !== 9 && phoneNumber !== ''" style="color: red;">El numero ha de tener 9 chifras recuerda que el +34 no es necesario</span>
                   </div>
                   <div class="mb-3">
                     <label>Población</label>
-                    <input class="form-control"  v-model = 'poblacion'>
+                    <input class="form-control"  v-model = 'poblacion' required>
                   </div>
                   <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember">
+                    <input type="checkbox" class="form-check-input" id="remember" required oninvalid="this.setCustomValidity('Debes de acceptar nuestras condiciones de uso antes de hacerte una cuenta')" oninput="this.setCustomValidity('')">
                     <label class="form-check-label" for="remember">He leído y acepto las <a type = "link" href ="condiciones de uso">Condiciones de uso</a> y la <a type ="link" href ="Politica de privacidad">Política de privacidad</a></label>
                     <div class="d-flex justify-content-between align-items-center py-3">
                         <button type="submit" class="btn btn-primary" v-on:click ="submitForm">Registrate</button>
@@ -118,7 +118,7 @@
                     validatePhoneNumber() {
                       const regex = /^[0-9\-]+$/; // Allow only numeric characters and dashes
                         if (!regex.test(this.phoneNumber) || this.phoneNumber.length != 9) {
-                        this.$refs.phoneInput.setCustomValidity('El numero ha de tenir 9 xifres');
+                        this.$refs.phoneInput.setCustomValidity('Please enter a valid phone number');
                         } else {
                           this.$refs.phoneInput.setCustomValidity('');
                         }
