@@ -9,40 +9,38 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-            <div class="container">
-              <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-                <div class="container">
-                  <a href="https://wanxer.github.io/LittleWork.github.io/" class="navbar-brand">HelpMeNow</a>
-                    
-                    <!-- es el boto d'expandir el menu -->
-                    <button class="navbar-toggler" 
-                    type="button" 
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navmenu"
-                    >
-                        <span class="navbar-toggler-icon"></span>
-                     </button>
-        
-                     
-                    <div class="collapse navbar-collapse" id="navmenu">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"> 
-                                <a href="https://wanxer.github.io/LittleWork.github.io/login" class="nav-link">Inicia sesion</a>
-                            </li>
-                            <li class="nav-item"> 
-                                <a href="https://wanxer.github.io/LittleWork.github.io/register" class="nav-link">Registrate</a>
-                            </li>
-                            <li class="nav-item"> 
-                                <a href="https://wanxer.github.io/LittleWork.github.io/workforus" class="nav-link">Quieres trabajar para nostros</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+      <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container">
+          <a href="https://wanxer.github.io/LittleWork.github.io/" class="navbar-brand">HelpMeNow</a>
+            
+            <!-- es el boto d'expandir el menu -->
+            <button class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse"
+            data-bs-target="#navmenu"
+            >
+                <span class="navbar-toggler-icon"></span>
+             </button>
+
+             
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"> 
+                        <a href="https://wanxer.github.io/LittleWork.github.io/login" class="nav-link">Inicia sesion</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a href="https://wanxer.github.io/LittleWork.github.io/register" class="nav-link">Registrate</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a href="https://wanxer.github.io/LittleWork.github.io/workforus" class="nav-link">Quieres trabajar para nostros</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
 
-        <section>
+        <section id = "app">
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-8">
@@ -54,16 +52,16 @@
                       <form>
                         <div class="mb-3">
                           <label  class="form-label">Titulo</label>
-                          <input  class="form-control" placeholder = "Ex: Cuidar de Perro">
+                          <input  class="form-control" v-model = "name" placeholder = "Ex: Cuidar de Perro" required>
                         </div>
                         <div class="mb-3">
                           <label class="form-label">Descripción</label>
-                          <input class="form-control">
+                          <input class="form-control" v-model = "descripcion">
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="form-group">
                                 <label class="form-label">Paga</label>
-                                <input class="form-control" placeholder="En €">
+                                <input class="form-control" placeholder="En €" v-model="paga" @input="formatMoneyInput">
                             </div>
                             <div class="form-check mx-5" style = "margin-top: 31px;">
                                 <input type="checkbox" class="form-check-input" id="pagar-por-hora">
@@ -86,6 +84,7 @@
               </div>
             </div>
           </section>
+          
 
 
 
@@ -93,7 +92,48 @@
 
 
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+          <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+          <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+              <script>
+                  const app = Vue.createApp({
+                      data() {
+                          return {
+                          title: "post",
+                          name: "",
+                          descripcion: "",
+                          poblacion: "",
+                          paga: ""
+                          }
+                      },
+
+                      
+                      
+                      methods: {
+                          submitForm() {
+                          console.log('Name:', this.name);
+                          console.log("descripcion", this.descripcion)
+                          console.log("población",this.poblacion)
+                          },
+                        
+                        formatMoneyInput(event) {
+                        // Get the input value and remove any non-numeric characters except dot (.)
+                        let inputValue = event.target.value.replace(/[^0-9.]/g, '');
+                        // Replace dot (.) with comma (,) if present
+                        inputValue = inputValue.replace('.', ',');
+                        // Update the input value
+                        this.paga = inputValue;
+                        const parts = inputValue.split(',');
+                        
+                        }
+
+                        
+                      }
+                  });
+                  
+                  
+                  app.mount("#app")
+              </script>
 
     </body>
 </html>
