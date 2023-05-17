@@ -11,7 +11,7 @@
     <body>
       <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container">
-            <a href="#" class="navbar-brand">Express work</a>
+          <a href="https://wanxer.github.io/LittleWork.github.io/" class="navbar-brand">HelpMeNow</a>
             
             <!-- es el boto d'expandir el menu -->
             <button class="navbar-toggler" 
@@ -54,18 +54,30 @@
               <div class="card-body">
                 <form>
                   <div class="mb-3">
-                    <input type="email" class="form-control"  placeholder="Direccion electronica" id="email" v-model = email>
+                    <label>Direccion electronica</label>
+                    <input type="email" class="form-control"  id="email" v-model = "email" required>
                   </div>
                   <div class="mb-3">
-                    <input class="form-control"  placeholder="Nombre y apellidos">
+                    <label>Nombre y apellidos</label>
+                    <input class="form-control" v-model = 'name' required>
                   </div>
                   <div class="mb-3">
-                    <input type="password" class="form-control" id="password"  placeholder="Contrase&#241;a" aria-describedby="passwordHelp">
+                    <label>Contrasenya</label>
+                    <input type="password" class="form-control" id="password"  aria-describedby="passwordHelp" v-model = "password" required>
                     <div id="passwordHelp" class="form-text">*Al menos 6 caracteres</div>
                   </div>
+                  <div class ="mb-3">
+                    <label>Población</label>
+                    <input class="form-control"  v-model = 'poblacion' required>
+                  </div>
                   <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember">
+                    <input type="checkbox" class="form-check-input" id="remember" v-model = "terminos" required oninvalid="this.setCustomValidity('Debes de acceptar nuestras condiciones de uso antes de hacerte una cuenta')" oninput="this.setCustomValidity('')">
                     <label class="form-check-label" for="remember">He leído y acepto las <a type = "link" href ="condiciones de uso">Condiciones de uso</a> y la <a type ="link" href ="Politica de privacidad">Política de privacidad</a></label>
+                  </div>
+                  <div class="mb-3 form-check">
+                    <div class="d-flex justify-content-between align-items-center py-3">
+                        <button v-on:click = "submitForm" type="submit" class="btn btn-primary">Registrate</button>
+                    </div>
                   </div>
                 </form>
               </div>
@@ -86,8 +98,8 @@
                 email: "",
                 password: "",
                 name: "",
-                phoneNumber: "",
-                población: ""
+                poblacion: "",
+                terminos: false
                 }
             },
             methods: {
@@ -95,18 +107,9 @@
                 console.log('Name:', this.name);
                 console.log('Email:', this.email);
                 console.log('Password:', this.password);
-                console.log("phonenumber", this.phoneNumber)
-                console.log("población")
+                console.log("población", this.poblacion);
+                console.log("Terminos de uso", this.terminos);
                 },
-
-                validatePhoneNumber() {
-                  const regex = /^[0-9\-]+$/; // Allow only numeric characters and dashes
-                    if (!regex.test(this.phoneNumber)) {
-                    this.$refs.phoneInput.setCustomValidity('Please enter a valid phone number');
-                    } else {
-                      this.$refs.phoneInput.setCustomValidity('');
-                    }
-              }
             }
         });
         
