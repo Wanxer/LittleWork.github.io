@@ -49,23 +49,24 @@
               </div>
               <div class="card-body">
                 <form>
-                  <div class="mb-3">
-                    <label>Direccion electronica</label>
-                    <input type="email" class="form-control" id="email" v-model = "email" required>
-                  </div>
-                  <div class="mb-3">
-                    <label>Contrasenya</label>
-                    <input type="password" class="form-control" id="password"  aria-describedby="passwordHelp" v-model = "password" required>
-                    <div id="passwordHelp" class="form-text">*Al menos 6 caracteres</div>
-                  </div>
-                  <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember" v-model = "recuerdame">
-                    <label class="form-check-label" for="remember">Recuerdame</label>
-                    <div class="d-flex justify-content-between align-items-center py-3">
-                        <button v-on:click = "handleSubmit" type="submit" class="btn btn-primary">Inicia Sesion</button>
-                        <a href="https://wanxer.github.io/LittleWork.github.io/register" role="button">No tengo una cuenta</a>
-                    </div>
-                </form>
+  <div class="mb-3">
+    <label>Direccion electronica</label>
+    <input type="email" class="form-control" id="email" v-model="email" required>
+  </div>
+  <div class="mb-3">
+    <label>Contrasenya</label>
+    <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" v-model="password" required>
+    <div id="passwordHelp" class="form-text">*Al menos 6 caracteres</div>
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="remember" v-model="recuerdame">
+    <label class="form-check-label" for="remember">Recuerdame</label>
+    <div class="d-flex justify-content-between align-items-center py-3">
+      <button v-on:click="handleSubmit" type="submit" class="btn btn-primary">Inicia Sesion</button>
+      <a href="https://wanxer.github.io/LittleWork.github.io/register" role="button">No tengo una cuenta</a>
+    </div>
+  </div>
+</form>
               </div>
             </div>
           </div>
