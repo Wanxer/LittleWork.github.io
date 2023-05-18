@@ -118,7 +118,7 @@
                         
                         formatMoneyInput(event) {
                         // Get the input value and remove any non-numeric characters except dot (.)
-                        let inputValue = event.target.value.replace(/[^0-9.]/g, '');
+                        let inputValue = event.target.value.replace(/[^0-9,]/g, '');
                         inputValue = inputValue.replace(/\.(?=.*\.)/g, '');
                         // Replace dot (.) with comma (,) if present
                         inputValue = inputValue.replace(/\./g, ',');
