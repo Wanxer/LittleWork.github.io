@@ -75,7 +75,7 @@
                         </div>
                         <div class="mb-3 form-check">
                           <div class="d-flex justify-content-between align-items-center py-3">
-                              <button type="submit" class="btn btn-primary">Sube el servicio</button>
+                              <button v-on:click = "submitFrom" type="submit" class="btn btn-primary">Sube el servicio</button>
                           </div>
                       </form>
                     </div>
@@ -117,14 +117,11 @@
                           },
                         
                         formatMoneyInput(event) {
-                        // Get the input value and remove any non-numeric characters except dot (.)
-                        let inputValue = event.target.value.replace(/[^0-9,]/g, '');
-                        inputValue = inputValue.replace(/\.(?=.*\.)/g, '');
-                        // Replace dot (.) with comma (,) if present
-                        inputValue = inputValue.replace(/\./g, ',');
-                        // Update the input value
+                        
+                        let inputValue = event.target.value.replace(/[^0-9.,]|([.,].*[,\.])|([.,]\d{2})\d+/g, '$1$2');  // Remove non-numeric characters except comma and decimal point, and restrict consecutive commas/dots and more than two numbers after comma/decimal
+                        inputValue = inputValue.replace('.', ',');
+                       
                         this.paga = inputValue;
-         
                         
                         }
 
