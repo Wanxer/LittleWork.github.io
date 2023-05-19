@@ -10,34 +10,35 @@
 
     <body>
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-        <div class="container">
-            <a href="https://wanxer.github.io/LittleWork.github.io/" class="navbar-brand">HelpMeNow</a>
-            
-            <!-- es el boto d'expandir el menu -->
-            <button class="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse"
-            data-bs-target="#navmenu"
-            >
-                <span class="navbar-toggler-icon"></span>
-             </button>
-
-             
-            <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"> 
-                        <a href="https://wanxer.github.io/LittleWork.github.io/login" class="nav-link">Inicia sesion</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a href="https://wanxer.github.io/LittleWork.github.io/register" class="nav-link">Registrate</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a href="https://wanxer.github.io/LittleWork.github.io/workforus" class="nav-link">Quieres trabajar para nostros</a>
-                    </li>
-                </ul>
+            <div class="container">
+                <a href="https://wanxer.github.io/LittleWork.github.io/" class="navbar-brand">HelpMeNow</a>
+                
+                <!-- es el boto d'expandir el menu -->
+                <button class="navbar-toggler" 
+                type="button" 
+                data-bs-toggle="collapse"
+                data-bs-target="#navmenu"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                 </button>
+    
+                 
+                <div class="collapse navbar-collapse" id="navmenu">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"> 
+                            <a href="https://wanxer.github.io/LittleWork.github.io/login" class="nav-link">Inicia sesion</a>
+                        </li>
+                        <li class="nav-item"> 
+                            <a href="https://wanxer.github.io/LittleWork.github.io/register" class="nav-link">Registrate</a>
+                        </li>
+                        <li class="nav-item"> 
+                            <a href="https://wanxer.github.io/LittleWork.github.io/workforus" class="nav-link">Quieres trabajar para nostros</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+
 
 
 
@@ -52,16 +53,19 @@
 
 
 
-        <section class="bg-dark text-light p-5 text-center">
-            <div class = "container">
-                <div class="p-3 mb-2 d-flex d-flex flex-column flex-md-row card p-3" id = "inici"> 
-                    <h1 class = "text-bg"> Solicita tu primer <span class = "text-primary">servicio</span></h1>
-                    <input class="form-control me-2 my-4" type="input" placeholder='Necessito que ("alguien me pasee el perro")'>
-
+        <section class="bg-dark text-light  text-center" id = "app">
+            <div class="container">
+                <div class="p-3 mb-2 mb-sm-0 mx-md-0 card" id="inici">
+                  <div class="d-flex align-items-center">
+                    <h1 class="text-bg">Solicita tu primer <span class="text-primary">servicio</span></h1>
+                    <div class="input-group flex-grow-1">
+                      <input class="form-control me-2 my-4" type="input" placeholder='Necesito que ("alguien me pasee el perro")' v-model = "name">
+                    </div>
+                    <button class="btn btn-primary" @click="submitForm">Empieza</button>
+                  </div>
                 </div>
-                <img class = "img-fluid" src ="https://www.bawdengroup.com/uploads/75588162_2571712956244840_5450246647458037760_n_3.jpg">
-            </div> 
-
+                <img class="img-fluid" src="https://www.bawdengroup.com/uploads/75588162_2571712956244840_5450246647458037760_n_3.jpg">
+              </div>
         </section>
 
         <section class="py-5 text-left">
@@ -88,6 +92,29 @@
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script>
+            localStorage.setItem('name', JSON.stringify(name));
+
+            const app = Vue.createApp({
+                data() {
+                    return {
+                    name: ""
+                    }
+                },
+                
+                methods: {
+                    submitForm() {
+                    window.location.href = 'https://wanxer.github.io/LittleWork.github.io/post';
+                    },
+                    
+                }
+            });
+            
+            app.mount("#app")
+        </script>
 
     </body>
 </html>
