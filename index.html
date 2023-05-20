@@ -96,7 +96,6 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <script>
-            localStorage.setItem('name', JSON.stringify(name));
 
             const app = Vue.createApp({
                 data() {
@@ -107,7 +106,8 @@
                 
                 methods: {
                     submitForm() {
-                    window.location.href = 'https://wanxer.github.io/LittleWork.github.io/post';
+                        localStorage.setItem('name', JSON.stringify(name));
+                        window.location.href = 'https://wanxer.github.io/LittleWork.github.io/post';
                     },
                     
                 }
