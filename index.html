@@ -100,13 +100,14 @@
             const app = Vue.createApp({
                 data() {
                     return {
-                    name: ""
+                        name: ""
                     }
                 },
                 
                 methods: {
                     submitForm() {
-                        localStorage.setItem('name', JSON.stringify(name));
+                        console.log(this.name)
+                        localStorage.setItem('name', JSON.stringify(this.name));
                         window.location.href = 'https://wanxer.github.io/LittleWork.github.io/post';
                     },
                     
