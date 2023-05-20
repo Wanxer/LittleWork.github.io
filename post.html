@@ -106,7 +106,12 @@
                           paga: ""
                           }
                       },
-
+                      created() {
+                        const storedName = localStorage.getItem('name');
+                        if (storedName) {
+                          this.name = JSON.parse(storedName);
+                            }
+                          },  
                       
                       
                       methods: {
