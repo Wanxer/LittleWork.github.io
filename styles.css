@@ -1,0 +1,23 @@
+.sans {
+    font-family: sans-serif;    
+}
+
+
+
+@media (min-width: 768px) {
+    .card {
+      margin-right: 20px;
+    }
+    .col-md-4 {
+        flex-basis: calc(33.33% - 20px);
+        max-width: calc(33.33% - 20px);
+    }
+}
+
+.invisibleDiv {
+    display: none;
+  }
+
+[v-cloak]{
+    display:none
+}
