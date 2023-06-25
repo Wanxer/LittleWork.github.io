@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 
     <head>
-        <meta carshet = "UTF-8">
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-        <link rel = "stylesheet" href= "style.css">
-        <title>EXPRESS JOBS</title>
+        <title>HELPMENOW</title>
+        <link rel="icon" type="image/x-icon" href="/imagenes/helpmenowlogo.ico">
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
       <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-        <div class="container">
-          <a href="https://wanxer.github.io/LittleWork.github.io/" class="navbar-brand">HelpMeNow</a>
-            
-            <!-- es el boto d'expandir el menu -->
-            <button class="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse"
-            data-bs-target="#navmenu"
-            >
-                <span class="navbar-toggler-icon"></span>
-             </button>
+          <div class="container">
+              <a href="https://helpmenow.es/" class="navbar-brand">HelpMeNow</a>
+              
+              <!-- es el boto d'expandir el menu -->
+              <button class="navbar-toggler" 
+              type="button" 
+              data-bs-toggle="collapse"
+              data-bs-target="#navmenu"
+              >
+                  <span class="navbar-toggler-icon"></span>
+               </button>
+  
+               
+              <div class="collapse navbar-collapse" id="navmenu">
+                  <ul class="navbar-nav ms-auto">
+                      <li class="nav-item"> 
+                          <a href="https://helpmenow.es/login" class="nav-link">Inicia sesion</a>
+                      </li>
+                      <li class="nav-item"> 
+                          <a href="https://helpmenow.es/register" class="nav-link">Registrate</a>
+                      </li>
+                      <li class="nav-item"> 
+                          <a href="https://helpmenow.es/workforus" class="nav-link">Empieza a trabajar</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
 
-             
-            <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"> 
-                        <a href="https://wanxer.github.io/LittleWork.github.io/login" class="nav-link">Inicia sesion</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a href="https://wanxer.github.io/LittleWork.github.io/register" class="nav-link">Registrate</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a href="https://wanxer.github.io/LittleWork.github.io/workforus" class="nav-link">Quieres trabajar para nostros</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-
-        <section id = "app">
+        <section id = "app" v-cloak>
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-8">
@@ -49,30 +50,64 @@
                       Solicita tu primer servicio
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form >
                         <div class="mb-3">
                           <label  class="form-label">Titulo</label>
                           <input  class="form-control" v-model = "name" placeholder = "Ex: Cuidar de Perro" required>
                         </div>
                         <div class="mb-3">
                           <label class="form-label">Descripción</label>
-                          <input class="form-control" v-model = "descripcion">
+                          <input class="form-control" v-model = "descripcion" required>
                         </div>
+                        <div class="mb-3 col-1">
+                            <label class="form-label">Paga</label>
+                            <input class="form-control" placeholder="En €" v-model="paga" @input="formatMoneyInput">   
+                        </div>
+                        <div class ="mb-3">
+                          <label>Código postal de donde se solicita el servicio</label>
+                          <input class="form-control" v-model = 'poblacion' required>
+                        </div>
+
                         <div class="d-flex align-items-center">
-                            <div class="form-group">
-                                <label class="form-label">Paga</label>
-                                <input class="form-control" placeholder="En €" v-model="paga" @input="formatMoneyInput">
-                            </div>
-                            <div class="form-check mx-5" style = "margin-top: 31px;">
-                                <input type="checkbox" class="form-check-input" id="pagar-por-hora">
-                                <label class="form-check-label" for="pagar-por-hora">Pagar por hora?</label>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Dia y hora</label>
-                            <input class="form-control" type = "datetime-local">
+                          <div class="col-1">
+                            <label>Dia</label>
+                            <input type="number" class="form-control" v-model="dia" min="1" max="31"required/>
+                          </div>
+                          <div class="col-2 mx-3">
+                            <label>Mes</label>
+                            <select v-model="mes" class="form-control" required> 
+                              <option value="enero" selected>enero</option>
+                              <option value="febrero">febrero</option>
+                              <option value="marzo">marzo</option>
+                              <option value="abril">abril</option>
+                              <option value="mayo">mayo</option>
+                              <option value="junio">junio</option>
+                              <option value="julio">julio</option>
+                              <option value="agosto">agosto</option>
+                              <option value="septiembre">septiembre</option>
+                              <option value="octubre">octubre</option>
+                              <option value="noviembre">noviembre</option>
+                              <option value="diciembre">diciembre</option>
+                            </select>
+                          </div>
+                          <div class="col-2">
+                            <label>Año</label>
+                            <select v-model="year" class="form-control"required>
+                              <option value=2023>2023</option>
+                              <option value=2024>2024</option>
+                            </select>
+                          </div>
+                          <div class="col-2 mx-3">
+                            <label>A las</label>
+                            <input type="time" id="timeInput" class="form-control" min="00:00" max="23:59" step="60" />
+                          </div>
+                          <div class="col-2">
+                            <label>Duracion</label>
+                            <input class="form-control" v-model = "duracion" required>
                           </div>
                         </div>
+                        
+
                         <div class="mb-3 form-check">
                           <div class="d-flex justify-content-between align-items-center py-3">
                               <button v-on:click = "submitForm" type="submit" class="btn btn-primary">Sube el servicio</button>
@@ -103,7 +138,11 @@
                           name: "",
                           descripcion: "",
                           poblacion: "",
-                          paga: ""
+                          paga: "",
+                          mes: "enero",
+                          dia: 1,
+                          year: 2023,
+                         
                           }
                       },
                       created() {
@@ -115,11 +154,26 @@
                       
                       
                       methods: {
-                          submitForm() {
-                          console.log('Name:', this.name);
-                          console.log("descripcion", this.descripcion)
-                          console.log("población",this.poblacion)
+                   
+                          submitForm(event) {
+                          event.preventDefault();
+                          console.log('Selected option:', this.mes);
+                          console.log("hi");
+                          console.log(document.cookie);
+                          axios.post('http://93.93.116.197:8000/posts', {
+                            "title": this.name,
+                            "description": this.descripcion,
+                            "price": this.paga,
+                            "per_hour": this.per_hora,
+                            "poblation": this.poblacion,
+                            "expiration": this.dia
+                          },{
+                                withCredentials: true // Include cookies in the request
+                              
+                            })
+                        
                           },
+                            
                         
                         formatMoneyInput(event) {
                         
@@ -129,6 +183,7 @@
                         this.paga = inputValue;
                         
                         }
+                        
 
                         
                       }
@@ -137,6 +192,5 @@
                   
                   app.mount("#app")
               </script>
-
     </body>
 </html>

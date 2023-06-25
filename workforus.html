@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 
     <head>
-        <meta carshet = "UTF-8">
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-        <link rel = "stylesheet" href= "style.css">
-        <title>EXPRESS JOBS</title>
+        <title>HELPMENOW</title>
+        <link rel="icon" type="image/x-icon" href="/imagenes/helpmenowlogo.ico">
     </head>
 
     <body>
       <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-        <div class="container">
-          <a href="https://wanxer.github.io/LittleWork.github.io/" class="navbar-brand">HelpMeNow</a>
-            
-            <!-- es el boto d'expandir el menu -->
-            <button class="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse"
-            data-bs-target="#navmenu"
-            >
-                <span class="navbar-toggler-icon"></span>
-             </button>
-
-             
-            <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"> 
-                        <a href="https://wanxer.github.io/LittleWork.github.io/login" class="nav-link">Inicia sesion</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a href="https://wanxer.github.io/LittleWork.github.io/register" class="nav-link">Registrate</a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a href="https://wanxer.github.io/LittleWork.github.io/workforus" class="nav-link">Quieres trabajar para nostros</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+          <div class="container">
+              <a href="https://helpmenow.es/" class="navbar-brand">HelpMeNow</a>
+              
+              <!-- es el boto d'expandir el menu -->
+              <button class="navbar-toggler" 
+              type="button" 
+              data-bs-toggle="collapse"
+              data-bs-target="#navmenu"
+              >
+                  <span class="navbar-toggler-icon"></span>
+               </button>
+  
+               
+              <div class="collapse navbar-collapse" id="navmenu">
+                  <ul class="navbar-nav ms-auto">
+                      <li class="nav-item"> 
+                          <a href="https://helpmenow.es/login" class="nav-link">Inicia sesion</a>
+                      </li>
+                      <li class="nav-item"> 
+                          <a href="https://helpmenow.es/register" class="nav-link">Registrate</a>
+                      </li>
+                      <li class="nav-item"> 
+                          <a href="https://helpmenow.es/workforus" class="nav-link">Empieza a trabajar</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
     
     <style> 
 
@@ -54,30 +54,32 @@
               <div class="card-body">
                 <form>
                   <div class="mb-3">
-                    <label>Direccion electronica</label>
-                    <input type="email" class="form-control" v-model = "email" required>
-                  </div>
-                  <div class="mb-3">
-                    <label>Nombre y apellidos</label>
-                    <input class="form-control"  v-model = 'name' required>
-                  </div>
-                  <div class="mb-3">
-                    <label>Contrasenya</label>
-                    <input type="password" class="form-control" id="password"  aria-describedby="passwordHelp" v-model = "password" required>
-                    <div id="passwordHelp" class="form-text">*Al menos 6 caracteres</div>
-                  </div>
-                  <div class="mb-3">
                     <label>Tú numero de teléfono</label>
                     <input type="tel" class="form-control" ref="phoneInput" v-model="phoneNumber" placeholder="+34" @input="validatePhoneNumber" required>
                     <span v-if="phoneNumber.length !== 9 && phoneNumber !== ''" style="color: red;">El numero ha de tener 9 chifras recuerda que el +34 no es necesario</span>
                   </div>
                   <div class="mb-3">
-                    <label>Población</label>
-                    <input class="form-control"  v-model = 'poblacion' required>
+                    <label>Codigo postal</label>
+                    <input class="form-control"  v-model = 'population' required>
                   </div>
+                  <div class="mb-3">
+                    <label>Data de nacimiento</label>
+                    <input type="text" v-model ="edad" class="form-control" id="dob" name="dob" pattern="\d{2}/\d{2}/\d{4}" placeholder="DD/MM/YYYY" required>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label>Habilidades y dotes </label>
+                    <textarea class="form-control" v-model="habilities" rows="4" style="resize: vertical;"></textarea required>
+                  </div>
+                  <div class="mb-3">
+                    <label>Tienes metodo de transporte</label>
+                    <input class="form-control"  v-model = "transport" required>
+                  </div>
+
+                  
                   <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="remember" required oninvalid="this.setCustomValidity('Debes de acceptar nuestras condiciones de uso antes de hacerte una cuenta')" oninput="this.setCustomValidity('')">
-                    <label class="form-check-label" for="remember">He leído y acepto las <a type = "link" href ="condiciones de uso">Condiciones de uso</a> y la <a type ="link" href ="Politica de privacidad">Política de privacidad</a></label>
+                    <label class="form-check-label" for="remember">He leído y acepto las <a type = "link" href ="/politicDeprivacidad.txt.txt">Condiciones de uso</a> y la <a type ="link" href ="/politicDeprivacidad.txt.txt">Política de privacidad</a></label>
                     <div class="d-flex justify-content-between align-items-center py-3">
                         <button type="submit" class="btn btn-primary" v-on:click ="submitForm">Registrate</button>
                     </div>
@@ -94,31 +96,33 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script>
+
             const app = Vue.createApp({
                 data() {
                     return {
                     title: "workForm",
-                    email: "",
-                    password: "",
-                    name: "",
                     phoneNumber: "",
-                    poblacion: ""
+                    population: ""
                     }
                 },
                 
                 methods: {
                     submitForm() {
-                    console.log('Name:', this.name);
-                    console.log('Email:', this.email);
-                    console.log('Password:', this.password);
-                    console.log("phonenumber", this.phoneNumber)
-                    console.log("población",this.poblacion)
+                      axios.post('http://93.93.116.197:8000/posts',{
+                      "phone": this.phoneNumber,
+                      "poblacion": this.population,
+                      "age": this.edad,
+                      "habilities": this.habilities,
+                      "transport": this.transport
+                    })
+                    window.location.href = '/workforus2';
+
                     },
 
                     validatePhoneNumber() {
                       const regex = /^[0-9\-]+$/; // Allow only numeric characters and dashes
                         if (!regex.test(this.phoneNumber) || this.phoneNumber.length != 9) {
-                        this.$refs.phoneInput.setCustomValidity('Please enter a valid phone number');
+                        this.$refs.phoneInput.setCustomValidity('Porfavor entra un numero de teléfono valido');
                         } else {
                           this.$refs.phoneInput.setCustomValidity('');
                         }
