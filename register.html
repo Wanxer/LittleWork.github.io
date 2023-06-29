@@ -99,7 +99,8 @@
       }
     },
     methods: {
-      submitForm() {
+      submitForm(event) {
+        event.preventDefault();
         if (this.email && this.password && this.name && this.terminos) {
           axios
             .post('http://127.0.0.1:8000/users', {
