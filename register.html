@@ -65,14 +65,14 @@
               </div>
               <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="remember" v-model="terminos" required oninvalid="this.setCustomValidity('Debes de acceptar nuestras condiciones de uso antes de hacerte una cuenta')" oninput="this.setCustomValidity('')">
-                <label class="form-check-label" for="remember">He leído y acepto las <a type="link" href="/politicDeprivacidad.txt">Condiciones de uso</a> y la <a type="link" href="/politicDeprivacidad.txt">Política de privacidad</a></label>
+                <label class="form-check-label" for="remember">He leído y acepto las <a type="link" href="/politicDeprivacidad.html">Condiciones de uso</a> y la <a type="link" href="/condicionsdeuso.html">Política de privacidad</a></label>
               </div>
               <div v-if="errorMessage" class="alert alert-danger" style="display: none;" id ="errorMessage" role="alert">
                 {{ errorMessage }}
               </div>
               <div class="mb-3 form-check">
                 <div class="d-flex justify-content-between align-items-center py-3">
-                  <button v-on:click="submitForm" type="submit" class="btn btn-primary">Registrate</button>
+                  <button v-on:click.prevent="submitForm" type="submit" class="btn btn-primary">Registrate</button>
                 </div>
               </div>
             </form>
@@ -99,11 +99,10 @@
       }
     },
     methods: {
-      submitForm(event) {
-        event.preventDefault();
+      submitForm() {
         if (this.email && this.password && this.name && this.terminos) {
           axios
-            .post('http://127.0.0.1:8000/users', {
+            .post('https://api.helpmenow.es/users', {
               email: this.email,
               password: this.password,
               name: this.name
@@ -123,6 +122,9 @@
                 document.getElementById("errorMessage").style.display = "block";
               }
             });
+        } else {
+          this.errorMessage = "Porfavor rellena todos los campos y acepta las condiciones de uso y política de privacidad.";
+          document.getElementById("errorMessage").style.display = "block";
         }
       }
     }
